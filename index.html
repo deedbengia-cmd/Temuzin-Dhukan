@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tachung Bakery</title>
+
+<style>
+body{
+margin:0;
+font-family: 'Segoe UI', sans-serif;
+background: linear-gradient(135deg,#fff6f0,#ffe0d6);
+}
+
+header{
+background:#8b0000;
+color:white;
+padding:25px;
+text-align:center;
+animation:fadeDown 1s ease;
+}
+
+h2{
+text-align:center;
+margin-top:40px;
+}
+
+.menu{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+padding:20px;
+}
+
+.card{
+background:white;
+padding:15px;
+border-radius:20px;
+box-shadow:0 8px 20px rgba(0,0,0,0.1);
+text-align:center;
+transition:0.4s;
+animation:fadeUp 1s ease;
+}
+
+.card:hover{
+transform:translateY(-8px);
+}
+
+.card img{
+width:100%;
+height:180px;
+object-fit:cover;
+border-radius:15px;
+}
+
+.price{
+color:#8b0000;
+font-weight:bold;
+}
+
+input[type="number"]{
+width:60px;
+padding:5px;
+border-radius:8px;
+border:1px solid #ccc;
+text-align:center;
+}
+
+button{
+background:#8b0000;
+color:white;
+border:none;
+padding:8px 14px;
+border-radius:10px;
+cursor:pointer;
+margin-top:8px;
+}
+
+button:hover{
+background:#b30000;
+}
+
+.cart{
+text-align:center;
+font-size:18px;
+margin:20px;
+font-weight:bold;
+}
+
+.total{
+text-align:center;
+font-size:20px;
+margin:10px;
+color:#8b0000;
+font-weight:bold;
+}
+
+.order-section{
+background:white;
+max-width:500px;
+margin:40px auto;
+padding:25px;
+border-radius:20px;
+box-shadow:0 8px 20px rgba(0,0,0,0.1);
+}
+
+.order-section input, .order-section select{
+width:100%;
+padding:10px;
+margin:10px 0;
+border-radius:10px;
+border:1px solid #ccc;
+}
+
+.qr-box{
+text-align:center;
+margin-top:20px;
+}
+
+.qr-box img{
+width:250px;
+border-radius:20px;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+footer{
+background:#8b0000;
+color:white;
+text-align:center;
+padding:15px;
+margin-top:40px;
+}
+
+@keyframes fadeUp{
+from{opacity:0; transform:translateY(40px);}
+to{opacity:1; transform:translateY(0);}
+}
+
+@keyframes fadeDown{
+from{opacity:0; transform:translateY(-40px);}
+to{opacity:1; transform:translateY(0);}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Tachung Bakery</h1>
+<p>Premium • Fresh • Delicious</p>
+</header>
+
+<div class="cart">
+🛒 Cart Items: <span id="cartCount">0</span>
+</div>
+
+<div class="total">
+Total: ₹<span id="totalPrice">0</span>
+</div>
+
+<h2>Fast Food</h2>
+<div class="menu">
+
+<div class="card">
+<img src="https://source.unsplash.com/400x300/?egg-roll">
+<h3>Egg Roll</h3>
+<p class="price">₹80</p>
+Qty: <input type="number" min="1" value="1" id="q1">
+<button onclick="addToCart(80,'q1')">Add</button>
+</div>
+
+<div class="card">
+<img src="https://source.unsplash.com/400x300/?samosa">
+<h3>Samosa</h3>
+<p class="price">₹10</p>
+Qty: <input type="number" min="1" value="1" id="q2">
+<button onclick="addToCart(10,'q2')">Add</button>
+</div>
+
+<div class="card">
+<img src="https://source.unsplash.com/400x300/?pizza">
+<h3>Pizza</h3>
+<p class="price">₹100</p>
+Qty: <input type="number" min="1" value="1" id="q3">
+<button onclick="addToCart(100,'q3')">Add</button>
+</div>
+
+<div class="card">
+<img src="https://source.unsplash.com/400x300/?burger">
+<h3>Burger</h3>
+<p class="price">₹80</p>
+Qty: <input type="number" min="1" value="1" id="q4">
+<button onclick="addToCart(80,'q4')">Add</button>
+</div>
+
+</div>
+
+<h2>Cakes</h2>
+<div class="menu">
+
+<div class="card">
+<img src="https://source.unsplash.com/400x300/?black-forest-cake">
+<h3>Black Forest</h3>
+<p class="price">₹800/kg</p>
+Qty: <input type="number" min="1" value="1" id="q5">
+<button onclick="addToCart(800,'q5')">Add</button>
+</div>
+
+<div class="card">
+<img src="https://source.unsplash.com/400x300/?vanilla-cake">
+<h3>Vanilla Cake</h3>
+<p class="price">₹900/kg</p>
+Qty: <input type="number" min="1" value="1" id="q6">
+<button onclick="addToCart(900,'q6')">Add</button>
+</div>
+
+</div>
+
+<div class="order-section">
+<h2>Place Order</h2>
+
+<input type="text" placeholder="Your Name" required>
+<input type="tel" placeholder="Mobile Number" required>
+<input type="text" placeholder="Delivery Address" required>
+
+<select>
+<option>UPI (Scan QR)</option>
+<option>Cash on Delivery</option>
+</select>
+
+<button>Submit Order</button>
+
+<div class="qr-box">
+<h3>Scan & Pay</h3>
+<img src="qr.png" alt="UPI QR">
+<p><strong>UPI ID:</strong> deedbengia@okaxis</p>
+<a href="upi://pay?pa=deedbengia@okaxis&pn=TachungBakery&cu=INR">
+<button>Pay Directly via UPI</button>
+</a>
+</div>
+
+<br>
+<a href="https://wa.me/919362734907" target="_blank">
+<button>Order on WhatsApp</button>
+</a>
+
+</div>
+
+<footer>
+© 2026 Tachung Bakery | 📞 9362734907
+</footer>
+
+<script>
+let cartCount = 0;
+let total = 0;
+
+function addToCart(price, qtyId){
+let qty = document.getElementById(qtyId).value;
+cartCount += parseInt(qty);
+total += price * qty;
+
+document.getElementById("cartCount").innerText = cartCount;
+document.getElementById("totalPrice").innerText = total;
+}
+</script>
+
+</body>
+</html>
